@@ -6,7 +6,7 @@ such as zencoder.com or pandastream.com.
 
 It works well with Rack based web applications, such as Ruby on Rails.
 
-Inspired by [CarrierWave](http://github.com/jnicklas/DirectWave) and used in [radiant.fm](http://radiant.fm)
+Inspired by [CarrierWave](http://github.com/jnicklas/DirectWave) and used in [radiant.fm](http://radiant.fm).
 
 ## Information
 
@@ -15,7 +15,7 @@ Inspired by [CarrierWave](http://github.com/jnicklas/DirectWave) and used in [ra
 
 ## Getting Help
 
-* Please report bugs on the [issue tracker]https://github.com/radiantfm/directwave/issues).
+* Please report bugs on the [issue tracker](https://github.com/radiantfm/directwave/issues).
 
 ## Installation
 
@@ -26,7 +26,7 @@ Install the latest stable release:
 In Rails, add it to your Gemfile:
 
 ``` ruby
-gem 'directwave'
+gem "directwave"
 ```
 
 ## Getting Started
@@ -79,7 +79,7 @@ u.audio.url # => '/url/to/file.png'
 ## Rails
 
 You can use different flash uploaders for multiple direct upload, 
-such as [Uploadify](http://sd.r). For example in Rails with CoffeeScript and Nokogiri
+such as [Uploadify](http://www.uploadify.com). For example in Rails with CoffeeScript and Nokogiri
 generate uploader controller at first:
 
 	rails g controller Uploads new create
@@ -165,7 +165,7 @@ method:
 
 ``` ruby
 class MyUploader < DirectWave::Uploader::Base
-  def store_dir
+  def upload_dir
     '/my/upload/directory/tmp'
   end
 end
@@ -197,9 +197,7 @@ class Audio < DirectWave::Uploader::Base
               label: "aac",
               url: "s3://#{@uploader.s3_bucket}.s3.amazonaws.com/#{@uploader.versions[:aac].key}",
               format: "aac",
-              notifications: [
-                { url: "http://zencoderfetcher/", format: "json" }
-              ]
+              notifications: [{ url: "http://zencoderfetcher/", format: "json" }]
             } # aac
           ] # outputs
         }
@@ -239,17 +237,13 @@ class Audio < DirectWave::Uploader::Base
             label: "aac",
             url: "s3://#{s3_bucket}.s3.amazonaws.com/#{versions[:aac].key}",
             format: "aac",
-            notifications: [
-              { url: "http://zencoderfetcher/", format: :json }
-            ]
+            notifications: [{ url: "http://zencoderfetcher/", format: :json }]
           }, # aac
           {
             label: "wav",
             url: "s3://#{s3_bucket}.s3.amazonaws.com/#{versions[:wav].key}",
             format: "wav",
-            notifications: [
-              { url: "http://zencoderfetcher/", format: :json }
-            ]
+            notifications: [{ url: "http://zencoderfetcher/", format: :json }]
           } # wav
 
         ] # outputs
