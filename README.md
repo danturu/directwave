@@ -31,11 +31,11 @@ gem "directwave"
 
 ## Getting Started
 
-Start off by generating an uploader:
+Start off generating an uploader:
 
 	rails generate directwave Audio
 
-this should give you a file in:
+this should give you the following file:
 
 	app/uploaders/audio_uploader.rb
 
@@ -47,9 +47,9 @@ class AudioUploader < DirectWave::Uploader::Base
 end
 ```
 
-Most of the time you are going to want to use DirectWave together with an ORM.
-It is quite simple to mount uploaders on columns in your model, so you can
-simply assign files and get going:
+Time after time you can use DirectWave together with an ORM. 
+It is quite simple to mount uploaders on columns in your model, 
+so in fact you can assign files and get going:
 
 ## ActiveRecord
 
@@ -67,8 +67,8 @@ class Track < ActiveRecord::Base
 end
 ```
 
-Now you can cache files by assigning them to the attribute, they will
-automatically be stored when the record is saved.
+Now you can cache files by assigning them to the attribute, 
+they will be stored automatically after the record save.
 
 ``` ruby
 u = Track.new(:audio_from_key => params[:key])
@@ -103,7 +103,7 @@ class UploadsController < ApplicationController
 end
 ```
 
-when in `assets/javascript/uploads.js.coffe` insert:
+then in `assets/javascript/uploads.js.coffe` insert:
 
 ``` html
 $(document).ready ->
@@ -149,8 +149,8 @@ in `views/uploads/new.html.erb`:
 
 ## Changing the directories
 
-In order to change where uploaded files are stored, just override the `store_dir`
-method:
+In order to change the location where uploaded files are stored, 
+just override the `store_dir` method:
 
 ``` ruby
 class MyUploader < DirectWave::Uploader::Base
@@ -160,8 +160,7 @@ class MyUploader < DirectWave::Uploader::Base
 end
 ```
 
-If you want change where files will be uploaded, override the `upload_dir`
-method:
+If you want to change where files will be uploaded, override the `upload_dir` method:
 
 ``` ruby
 class MyUploader < DirectWave::Uploader::Base
@@ -208,8 +207,8 @@ class Audio < DirectWave::Uploader::Base
 end
 ```
 
-When this uploader is used, a version called aac is then created, which is processed with `process`. 
-The uploader could be used like this:
+When the uploader is used, a version named aac will be created 
+which is processed with `process` method. The uploader could be used like this:
 
 ``` ruby
 uploader.url # => '/url/to/original/file.png'               
@@ -218,7 +217,7 @@ uploader.aac.url # => '/url/to/aac/file.png'
 uploader.url(:aac) # => '/url/to/aac/file.png'   
 ```
 
-You can also override `global_process` method wich called after 
+You can also override `global_process` method which called after 
 all process within versions:
 
 ``` ruby
