@@ -11,11 +11,11 @@ Inspired by [CarrierWave](http://github.com/jnicklas/DirectWave) and used in [ra
 ## Information
 
 * RDoc documentation [available on RubyDoc.info](http://rubydoc.info/gems/DirectWave/frames)
-* Source code [available on GitHub](http://github.com/jnicklas/DirectWave)
+* Source code [available on GitHub](https://github.com/radiantfm/directwave)
 
 ## Getting Help
 
-* Please report bugs on the [issue tracker](http://github.com/jnicklas/DirectWave/issues).
+* Please report bugs on the [issue tracker]https://github.com/radiantfm/directwave/issues).
 
 ## Installation
 
@@ -196,13 +196,7 @@ class Audio < DirectWave::Uploader::Base
             {
               label: "aac",
               url: "s3://#{@uploader.s3_bucket}.s3.amazonaws.com/#{@uploader.versions[:aac].key}",
-              skip_video: true, 
-              public: false,
               format: "aac",
-              audio_bitrate: 128,
-              audio_sample_rate: 44100,
-              audio_channels: 2, 
-              audio_normalize: true, 
               notifications: [
                 { url: "http://zencoderfetcher/", format: "json" }
               ]
@@ -220,10 +214,10 @@ When this uploader is used, a version called aac is then created, which is proce
 The uploader could be used like this:
 
 ``` ruby
-uploader.url # => '/url/to/my_file.png'               
-uploader.url(:original) # => '/url/to/my_file.png'               
-uploader.aac.url # => '/url/to/thumb_my_file.png'   
-uploader.url(:original) # => '/url/to/thumb_my_file.png'   
+uploader.url # => '/url/to/original/file.png'               
+uploader.url(:original) # => '/url/to/original/file.png'               
+uploader.aac.url # => '/url/to/aac/file.png'   
+uploader.url(:aac) # => '/url/to/aac/file.png'   
 ```
 
 You can also override `global_process` method wich called after 
@@ -244,14 +238,7 @@ class Audio < DirectWave::Uploader::Base
           {
             label: "aac",
             url: "s3://#{s3_bucket}.s3.amazonaws.com/#{versions[:aac].key}",
-            skip_video: true, 
-            public: false,
             format: "aac",
-            force_aac_profile: "he-aac-v2", 
-            audio_bitrate: 128,
-            audio_sample_rate: 44100,
-            audio_channels: 2, 
-            audio_normalize: true, 
             notifications: [
               { url: "http://zencoderfetcher/", format: :json }
             ]
@@ -259,8 +246,6 @@ class Audio < DirectWave::Uploader::Base
           {
             label: "wav",
             url: "s3://#{s3_bucket}.s3.amazonaws.com/#{versions[:wav].key}",
-            skip_video: true, 
-            public: false,
             format: "wav",
             notifications: [
               { url: "http://zencoderfetcher/", format: :json }
