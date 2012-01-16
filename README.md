@@ -6,7 +6,7 @@ such as zencoder.com or pandastream.com.
 
 It works well with Rack based web applications, such as Ruby on Rails.
 
-Inspired by [CarrierWave](http://github.com/jnicklas/DirectWave) and used in [radiant.fm](http://radiant.fm).
+Inspired by [CarrierWave](https://github.com/jnicklas/carrierwave) and used in [radiant.fm](http://radiant.fm).
 
 ## Information
 
