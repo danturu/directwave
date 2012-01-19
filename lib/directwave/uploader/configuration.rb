@@ -17,6 +17,7 @@ module DirectWave
         
         add_config :store_dir
         add_config :upload_dir
+        add_config :cache_dir
 
         reset_config
       end
@@ -57,8 +58,9 @@ module DirectWave
             config.max_file_size   = 300.megabytes
             config.expiration_date = 6.hours.from_now.utc.iso8601
 
-            config.store_dir = "uploads"
+            config.store_dir  = "uploads"
             config.upload_dir = "uploads/tmp"
+            config.cache_dir  = 'uploads/cache'
           end
         end
       end # ClassMethods

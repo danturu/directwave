@@ -35,10 +35,25 @@ module DirectWave
           @filename = nil
           @url      = nil
           @key      = nil
+          @date     = nil
         end
         
         def delete
           file.delete if file.exists? 
+        end
+        
+        def retrieve
+          @data ||= file.read 
+          begin
+            temp_file = Tempfile.new([extract(:basename), extract(:extname)], @uploader.cache_dir)
+            temp_file.binmode
+            temp_file.write(@data)            
+            temp_file.flush
+            yield(temp_file)              
+          ensure
+           # temp_file.close
+            #temp_file.unlink
+          end        
         end
         
         private
