@@ -12,7 +12,7 @@ module DirectWave
         versions[version.to_sym].key
       end
       
-      def default_url
+      def default_url 
         puts "default_url"
       end
       
