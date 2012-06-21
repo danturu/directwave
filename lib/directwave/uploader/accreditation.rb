@@ -21,7 +21,7 @@ module DirectWave
       def s3_policy
         @s3_policy ||= Base64.encode64(
           {
-            "expiration" => expiration_date,
+            "expiration" => (Time.now + expiration_period).utc.iso8601,
             "conditions" => [
               {"bucket" => s3_bucket},
               ["starts-with", "$key", upload_dir],

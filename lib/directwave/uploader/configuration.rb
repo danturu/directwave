@@ -13,7 +13,7 @@ module DirectWave
         add_config :s3_authentication_timeout
         
         add_config :max_file_size
-        add_config :expiration_date
+        add_config :expiration_period
         
         add_config :store_dir
         add_config :upload_dir
@@ -56,7 +56,7 @@ module DirectWave
             config.s3_authentication_timeout = 60.minutes
             
             config.max_file_size   = 300.megabytes
-            config.expiration_date = 6.hours.from_now.utc.iso8601
+            config.expiration_period = 6.hours
 
             config.store_dir  = "uploads"
             config.upload_dir = "uploads/tmp"
