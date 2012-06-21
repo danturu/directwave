@@ -12,9 +12,7 @@ module DirectWave
         versions[version.to_sym].key
       end
       
-      def default_url 
-        puts "default_url"
-      end
+      def default_url; end
       
       def filename(part=nil)
         return original_filename unless has_store_key?
