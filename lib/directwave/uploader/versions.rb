@@ -1,13 +1,13 @@
 module DirectWave
-  
-  module Uploader    
+
+  module Uploader
     module Versions
       class Version
         def initialize(uploader, name)
           @uploader = uploader
           @name     = name
         end
-        
+
         def filename
           @filename ||= [extract(:guid), [extract(:basename), @name].join("-") << extract(:extname)].join("/")
         end
@@ -21,15 +21,15 @@ module DirectWave
             end
           end
         end
-        
+
         def key
           @key ||= File.join([@uploader.store_dir, filename].compact)
         end
-        
+
         def file
           @file ||= @uploader.class.s3_directory.objects[key]
         end
-        
+
         def process
           @file     = nil
           @filename = nil
@@ -37,33 +37,35 @@ module DirectWave
           @key      = nil
           @date     = nil
         end
-        
+
         def delete
-          file.delete if file.exists? 
+          file.delete if file.exists?
         end
-        
+
         def retrieve
-          @data ||= file.read 
+          Dir.mkdir(@uploader.cache_dir) unless File.exists?(@uploader.cache_dir)
+
+          @data ||= file.read
           begin
             temp_file = Tempfile.new([extract(:basename), extract(:extname)], @uploader.cache_dir)
             temp_file.binmode
-            temp_file.write(@data)            
+            temp_file.write(@data)
             temp_file.flush
-            yield(temp_file)              
+            yield(temp_file)
           ensure
-           # temp_file.close
-            #temp_file.unlink
-          end        
+            temp_file.close
+            temp_file.unlink
+          end
         end
-        
+
         private
-        
+
         def extract(part)
           part     = part.to_sym
           key_path = @uploader.original_filename.split("/")
           filename = key_path.pop
           guid     = key_path.pop
-          
+
           case part
           when :guid
             guid
@@ -73,13 +75,13 @@ module DirectWave
             File.extname(filename)
           else
             filename
-          end           
+          end
         end
-        
+
       end # Version
-      
+
       extend ActiveSupport::Concern
-      
+
       included do
         if respond_to?(:class_inheritable_accessor)
           ActiveSupport::Deprecation.silence do
@@ -88,12 +90,12 @@ module DirectWave
         else
           class_attribute :versions, :instance_reader => false, :instance_writer => false
         end
-        
+
         self.versions = {}
       end
-           
+
       module ClassMethods
-        
+
         ##
         # Adds a new version to this uploader
         #
@@ -110,7 +112,7 @@ module DirectWave
         #         def filename
         #           @filename ||= [extract(:guid), "iphone-video" << extract(:extname)].join("/")
         #         end
-        #         
+        #
         #         def process
         #           super
         #
@@ -139,7 +141,7 @@ module DirectWave
           versions[name].class_eval(&block) if block
           versions[name]
         end
-        
+
       end # ClassMethods
 
       ##
@@ -157,8 +159,8 @@ module DirectWave
         end
         @versions
       end
-      
-    end # Versions    
+
+    end # Versions
   end # Uploader
-  
+
 end# DirectWave
